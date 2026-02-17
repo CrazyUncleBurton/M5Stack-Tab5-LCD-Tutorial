@@ -1,6 +1,6 @@
 /*
 
-  M5Stack LCD Testing - Tab5 Edition
+  M5Stack Tab5 LCD Tutorial
 
   by Bryan A. "CrazyUncleBurton" Thompson
 

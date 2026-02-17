@@ -1,4 +1,4 @@
-# M5Stack-Tab5-Tutorial
+# M5Stack-Tab5-LCD-Tutorial
 
 by Bryan A. "CrazyUncleBurton" Thompson
 Last Updated 2/17/2026
