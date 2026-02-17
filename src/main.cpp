@@ -16,6 +16,7 @@ M5Canvas canvas(&display);
 SHT3X sht3x;
 QMP6988 qmp;
 
+// Variables
 float shtTempF = 0.0f;
 float shtHumidity = 0.0f;
 float qmpTempF = 0.0f;
@@ -23,10 +24,9 @@ float qmpPressureInHg = 0.0f;
 float qmpAltitudeFt = 0.0f;
 bool shtPresent = false;
 bool qmpPresent = false;
-
 const int i2cSdaPin = 53;
 const int i2cSclPin = 54;
-const int textSize = 2;
+const int textSize = 4;
 const char degreeSymbol[] = { static_cast<char>(0xC2), static_cast<char>(0xB0), '\0' };
 
 void drawDashboard()
@@ -34,36 +34,39 @@ void drawDashboard()
   canvas.fillScreen(TFT_BLACK);
   canvas.setTextSize(textSize);
 
-  const int lineHeight = canvas.fontHeight() + 14;
-  const int x = 75;
-  int y = 75;
+  int lineHeight = canvas.fontHeight() + 14;
+  int x = 175;
+  int y = 100;
 
 
   if ((shtPresent)&&(qmpPresent)) {
 
     canvas.setCursor(x, y);
-    canvas.printf("Temp 1: %.1f%sF", shtTempF, degreeSymbol);
+    canvas.printf("  Temp 1: %.2f%sF", shtTempF, degreeSymbol);
     y += lineHeight;
 
     canvas.setCursor(x, y);
-    canvas.printf("Temp: %.1f%sF", qmpTempF, degreeSymbol);
+    canvas.printf("  Temp 2: %.2f%sF", qmpTempF, degreeSymbol);
     y += lineHeight;
 
     canvas.setCursor(x, y);
-    canvas.printf("Humidity: %.1f%% RH", shtHumidity);
-    y += lineHeight * 2;
-
-    canvas.setCursor(x, y);
-    canvas.printf("Pressure: %.1f inHg", qmpPressureInHg);
+    canvas.printf("Humidity: %.2f%% RH", shtHumidity);
     y += lineHeight;
 
     canvas.setCursor(x, y);
-    canvas.printf("Altitude: %.1f ft", qmpAltitudeFt);
+    canvas.printf("Pressure: %.2f inHg", qmpPressureInHg);
+    y += lineHeight;
+
+    canvas.setCursor(x, y);
+    canvas.printf("Altitude: %.2f ft", qmpAltitudeFt);
+
   } else {
     canvas.setCursor(x, y);
     canvas.printf("ENV III not found");
-
   }
+
+  canvas.pushSprite(0, 0);
+}
 
 void setup()
 {
@@ -81,8 +84,8 @@ void setup()
   canvas.setTextWrap(false, false);
 
   canvas.fillScreen(TFT_BLACK);
-  canvas.drawCenterString("M5Stack Tab5"), display.width() / 2, display.height() / 2 - canvas.fontHeight());
-  canvas.drawCenterString("Starting...", display.width() / 2, display.height() / 2 + (canvas.fontHeight() / 2));
+  canvas.drawCenterString("M5Stack Tab5", display.width() / 2, display.height() / 2 - 150);
+  canvas.drawCenterString("Starting...", display.width() / 2 + 20, display.height() / 2 + 50);
   canvas.pushSprite(0, 0);
   delay(1000);
 
